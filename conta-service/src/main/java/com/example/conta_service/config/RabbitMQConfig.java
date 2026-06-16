@@ -21,8 +21,6 @@ public class RabbitMQConfig {
         return new Queue(FILA_ORDEM_COMPRA, true); // fila durável, não some se o RabbitMQ reiniciar
     }
 
-}
-
     // 2. Cria a exchange do tipo Direct
     @Bean
     public DirectExchange ordemCompraExchange() {
