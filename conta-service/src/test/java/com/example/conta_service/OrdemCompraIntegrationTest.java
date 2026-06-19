@@ -3,12 +3,10 @@ package com.example.conta_service;
 import com.example.conta_service.domain.OrdemCompra;
 import com.example.conta_service.repository.OrdemCompraRepository;
 import com.example.conta_service.service.OrdemCompraPublisher;
-
-import org.apiguardian.api.API;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
