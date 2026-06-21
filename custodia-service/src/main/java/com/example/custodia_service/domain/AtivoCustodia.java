@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -14,13 +15,13 @@ public class AtivoCustodia {
     private UUID id;
 
     private String cpfCliente;
-    private Double valor;
+    private BigDecimal valor;
     private String statusCustodia;
 
     public AtivoCustodia() {
     }
 
-    public AtivoCustodia(String cpfCliente, Double valor, String statusCustodia) {
+    public AtivoCustodia(String cpfCliente, BigDecimal valor, String statusCustodia) {
         this.cpfCliente = cpfCliente;
         this.valor = valor;
         this.statusCustodia = statusCustodia;
@@ -42,11 +43,11 @@ public class AtivoCustodia {
         this.cpfCliente = cpfCliente;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
