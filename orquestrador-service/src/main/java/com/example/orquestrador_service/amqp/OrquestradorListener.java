@@ -13,7 +13,8 @@ public class OrquestradorListener {
     private final TransacaoSagaRepository repository;
     private final RabbitTemplate rabbitTemplate;
 
-    // injeta o repositório e o template do rabbitmq via construtor (melhor prática do spring)
+    // injeta o repositório e o template do rabbitmq via construtor (melhor prática
+    // do spring)
     public OrquestradorListener(TransacaoSagaRepository repository, RabbitTemplate rabbitTemplate) {
         this.repository = repository;
         this.rabbitTemplate = rabbitTemplate;
@@ -22,13 +23,14 @@ public class OrquestradorListener {
     // escuta a mesma fila onde o conta-service joga as ordens recém-criadas
     @RabbitListener(queues = "ordem.compra.fila")
     public void processarNovaOrdem(OrdemCompraDto dto) {
-        
+
         // cria a ficha de rastreio da saga no banco de dados do orquestrador
         TransacaoSaga saga = new TransacaoSaga(dto.getId(), dto.getCpfCliente(), dto.getValor());
         repository.save(saga);
-        
+
         System.out.println("Orquestrador interceptou a ordem de ID: " + dto.getId());
-        
-        // TODO: aqui será feito o roteamento para a fila exclusiva do custodia-service na próxima etapa
+
+        // roteia a ordem para a fila exclusiva do custodia-service
+        rabbitTemplate.convertAndSend("custodia.fila", dto);
     }
 }
