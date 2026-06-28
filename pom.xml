@@ -19,4 +19,6 @@
         <module>orquestrador-service</module>
     </modules>
 
+    <!-- classe global que organiza as pastas em microsserviços -->
+
 </project>
