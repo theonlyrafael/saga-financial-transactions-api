@@ -1,5 +1,6 @@
 package com.example.orquestrador_service.amqp;
 
+import com.example.orquestrador_service.config.RabbitMQConfig;
 import com.example.orquestrador_service.domain.TransacaoSaga;
 import com.example.orquestrador_service.dto.OrdemCompraDto;
 import com.example.orquestrador_service.repository.TransacaoSagaRepository;
@@ -13,8 +14,7 @@ public class OrquestradorListener {
     private final TransacaoSagaRepository repository;
     private final RabbitTemplate rabbitTemplate;
 
-    // injeta o repositório e o template do rabbitmq via construtor (melhor prática
-    // do spring)
+    // injeta o repositório e o template do rabbitmq via construtor)
     public OrquestradorListener(TransacaoSagaRepository repository, RabbitTemplate rabbitTemplate) {
         this.repository = repository;
         this.rabbitTemplate = rabbitTemplate;
@@ -30,7 +30,7 @@ public class OrquestradorListener {
 
         System.out.println("Orquestrador interceptou a ordem de ID: " + dto.getId());
 
-        // roteia a ordem para a fila exclusiva do custodia-service
-        rabbitTemplate.convertAndSend("custodia.fila", dto);
+        // roteia a ordem usando o exchange e a routing key definidos na configuração
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_CUSTODIA, RabbitMQConfig.ROUTING_KEY_CUSTODIA, dto);
     }
 }
