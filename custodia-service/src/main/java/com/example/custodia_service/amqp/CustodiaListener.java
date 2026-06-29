@@ -17,8 +17,12 @@ public class CustodiaListener {
     }
 
     // ouvinte travado na fila exata que o conta-service configurou
-    @RabbitListener(queues = "ordem.compra.fila")
+    @RabbitListener(queues = "custodia.ordem")
     public void processarOrdem(OrdemCompraDto ordemDto) {
+
+        System.out.println("[Custodia-Service] SUCESSO: Ordem interceptada na fila 'custodia.ordem'!");
+        System.out.println("[Custodia-Service] Dados recebidos -> CPF: " + ordemDto.getCpfCliente() + " | Valor: "
+                + ordemDto.getValor());
 
         // converte o dto recebido para a entidade de custódia
         AtivoCustodia ativo = new AtivoCustodia();
@@ -28,5 +32,7 @@ public class CustodiaListener {
 
         // persiste a nova custódia no banco h2 isolado
         repository.save(ativo);
+
+        System.out.println("[Custodia-Service] Ativo salvo no banco H2 com status CUSTODIADO.");
     }
 }
