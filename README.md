@@ -23,9 +23,9 @@ Siga o passo a passo abaixo para rodar o ecossistema localmente e acompanhar a l
 
 Primeiramente, certifique-se de ter o Docker rodando em sua máquina e execute o comando abaixo no terminal para levantar o servidor do RabbitMQ com o painel de gerenciamento:
 
-\`\`\`bash
+```bash
 docker run -d --name rabbitmq-server -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-\`\`\`
+```
 
 Adicionalmente, você pode visualizar a interface gráfica do broker através do seu navegador (Opcional: acesse `http://localhost:15672` utilizando as credenciais `guest`/`guest` para monitorar as filas).
 
@@ -45,12 +45,12 @@ Posteriormente, com os serviços rodando, faça uma requisição HTTP via Thunde
 
 **Body (JSON):**
 
-\`\`\`json
+```json
 {
   "cpfCliente": "12345678900",
   "valor": 25000.00
 }
-\`\`\`
+```
 
 Ao disparar a requisição, você receberá um status `200 OK` imediato. Logo após, olhe para os terminais das aplicações, pois você verá os logs rastreando a mensagem saindo da Conta, sendo interceptada pelo Orquestrador e finalmente sendo salva pela Custódia.
 
