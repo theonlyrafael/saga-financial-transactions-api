@@ -4,7 +4,7 @@
 
 No ecossistema financeiro atual, a disponibilidade e a integridade dos dados são inegociáveis. Diante disso, em arquiteturas monolíticas tradicionais, a falha em um único módulo (como o sistema de custódia) pode derrubar toda a operação do cliente (como a criação de uma conta ou a emissão de uma ordem de compra). Por esse motivo, o objetivo deste projeto é resolver esse problema implementando uma Arquitetura de Microsserviços Orientada a Eventos.
 
-Nesse sentido, o sistema simula a criação e o processamento de ordens de investimentos utilizando o **Padrão Saga (Coreografado)** para garantir a consistência dos dados. Dessa forma, os serviços operam de maneira totalmente desacoplada, o que significa que a porta de entrada não engargala esperando o fim do processamento. Sendo assim, caso o sistema final fique indisponível, as transações não são perdidas, sendo mantidas seguras na fila de mensageria até a normalização.
+Nesse sentido, o sistema simula a criação e o processamento de ordens de investimentos utilizando o **Padrão Saga (Orquestrado)** para garantir a consistência dos dados. Dessa forma, os serviços operam de maneira totalmente desacoplada, o que significa que a porta de entrada não engargala esperando o fim do processamento. Sendo assim, caso o sistema final fique indisponível, as transações não são perdidas, sendo mantidas seguras na fila de mensageria até a normalização.
 
 ## 🛠️ Stack Tecnológica Principal
 
