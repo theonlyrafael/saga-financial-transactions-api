@@ -14,6 +14,10 @@ public class AtivoCustodia {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    // id da ordem original (conta-service), guardado aqui para rastrear a
+    // qual saga este registro de custódia pertence
+    private UUID ordemId;
+
     private String cpfCliente;
     private BigDecimal valor;
     private String statusCustodia;
@@ -21,7 +25,8 @@ public class AtivoCustodia {
     public AtivoCustodia() {
     }
 
-    public AtivoCustodia(String cpfCliente, BigDecimal valor, String statusCustodia) {
+    public AtivoCustodia(UUID ordemId, String cpfCliente, BigDecimal valor, String statusCustodia) {
+        this.ordemId = ordemId;
         this.cpfCliente = cpfCliente;
         this.valor = valor;
         this.statusCustodia = statusCustodia;
@@ -33,6 +38,14 @@ public class AtivoCustodia {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getOrdemId() {
+        return ordemId;
+    }
+
+    public void setOrdemId(UUID ordemId) {
+        this.ordemId = ordemId;
     }
 
     public String getCpfCliente() {

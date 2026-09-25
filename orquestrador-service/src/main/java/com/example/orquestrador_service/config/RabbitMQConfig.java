@@ -18,6 +18,13 @@ public class RabbitMQConfig {
     public static final String EXCHANGE_CUSTODIA = "custodia.ordem.exchange";
     public static final String ROUTING_KEY_CUSTODIA = "custodia.ordem.routing.key";
 
+    // nomes da fila/exchange de resultado -- o custodia-service também declara
+    // esta mesma infraestrutura (idempotente); assim o orquestrador não depende
+    // da ordem de inicialização dos serviços para conseguir escutar a fila
+    public static final String FILA_RESULTADO = "resultado.saga.fila";
+    public static final String EXCHANGE_RESULTADO = "resultado.saga.exchange";
+    public static final String ROUTING_KEY_RESULTADO = "resultado.saga.routing.key";
+
     // 1. Cria a fila exclusiva para o custodia-service escutar depois
     @Bean
     public Queue custodiaQueue() {
@@ -36,13 +43,30 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(custodiaQueue).to(custodiaExchange).with(ROUTING_KEY_CUSTODIA);
     }
 
-    // 4. Mantém o conversor idêntico validado para o spring boot 4.1.0
+    // 4. Declara também a fila de resultado (o ResultadoSagaListener escuta aqui),
+    // para que ela exista mesmo que o orquestrador suba antes do custodia-service
+    @Bean
+    public Queue resultadoQueue() {
+        return new Queue(FILA_RESULTADO, true);
+    }
+
+    @Bean
+    public DirectExchange resultadoExchange() {
+        return new DirectExchange(EXCHANGE_RESULTADO);
+    }
+
+    @Bean
+    public Binding resultadoBinding(Queue resultadoQueue, DirectExchange resultadoExchange) {
+        return BindingBuilder.bind(resultadoQueue).to(resultadoExchange).with(ROUTING_KEY_RESULTADO);
+    }
+
+    // 5. Mantém o conversor idêntico validado para o spring boot 4.1.0
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new JacksonJsonMessageConverter();
     }
 
-    // 5. Mantém o template configurado para o envio do orquestrador
+    // 6. Mantém o template configurado para o envio do orquestrador
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter messageConverter) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
