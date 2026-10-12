@@ -1,5 +1,11 @@
 # Sistema Distribuído de Transações Financeiras
 
+![Java](https://img.shields.io/badge/Java-17-ED8B00?style=plastic)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.0-6DB33F?style=plastic)
+![RabbitMQ](https://img.shields.io/badge/RabbitMQ-Message%20Broker-FF6600?style=plastic)
+![H2 Database](https://img.shields.io/badge/H2-Database-09476B?style=plastic)
+![Docker](https://img.shields.io/badge/Docker-Containerization-2496ED?style=plastic)
+
 ## 🎯 Objetivo e Motivação do Sistema
 
 No ecossistema financeiro atual, a disponibilidade e a integridade dos dados são inegociáveis. Diante disso, em arquiteturas monolíticas tradicionais, a falha em um único módulo (como o sistema de custódia) pode derrubar toda a operação do cliente (como a criação de uma conta ou a emissão de uma ordem de compra). Por esse motivo, o objetivo deste projeto é resolver esse problema implementando uma Arquitetura de Microsserviços Orientada a Eventos.
